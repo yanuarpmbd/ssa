@@ -1,0 +1,18 @@
+- Sampel arsip
+- Klasifikasi arsip
+- Laporan analisis kebutuhan
+
+- Flowchart V
+- Diagram ERD V
+- UI
+- Database V
+
+- Development
+
+- Ujicoba
+- Evaluasi
+
+- Laporan 
+
+
+* Auto update retensi

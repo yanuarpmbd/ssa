@@ -1,0 +1,1 @@
+<img src="{{ asset('/images/lambang-bpk.png') }}" alt="Icon" class="h-full w-full object-contain" />
