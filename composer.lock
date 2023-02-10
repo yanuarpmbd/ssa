@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b739c3cda002f1fbad5fc57f0e4f0d9",
+    "content-hash": "48d8dbbdc8abed8961cdd230681637e4",
     "packages": [
         {
             "name": "3x1io/filament-user",
@@ -6232,6 +6232,83 @@
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
             },
             "time": "2021-12-11T13:40:54+00:00"
+        },
+        {
+            "name": "sgcomptech/filament-ticketing",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sgcomptech/filament-ticketing.git",
+                "reference": "95daa420ec632e65f88510340ecce683f3e80664"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sgcomptech/filament-ticketing/zipball/95daa420ec632e65f88510340ecce683f3e80664",
+                "reference": "95daa420ec632e65f88510340ecce683f3e80664",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^2.16",
+                "illuminate/contracts": "^9.0",
+                "laravel/framework": "^9.39",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.13.0"
+            },
+            "require-dev": {
+                "filament/spatie-laravel-settings-plugin": "^2.16",
+                "filament/spatie-laravel-translatable-plugin": "^2.16",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.22",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "pestphp/pest-plugin-livewire": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sgcomptech\\FilamentTicketing\\FilamentTicketingServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentTicketing": "Sgcomptech\\FilamentTicketing\\Facades\\FilamentTicketing"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sgcomptech\\FilamentTicketing\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lee Kai Mun",
+                    "email": "leekaimun@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Laravel Filament plugin to support issue tracking and ticketing system.",
+            "homepage": "https://github.com/sgcomptech/filament-ticketing",
+            "keywords": [
+                "Issue Tracking",
+                "filament",
+                "filament-ticketing",
+                "laravel",
+                "messaging",
+                "sgcomptech",
+                "ticketing"
+            ],
+            "support": {
+                "issues": "https://github.com/sgcomptech/filament-ticketing/issues",
+                "source": "https://github.com/sgcomptech/filament-ticketing/tree/1.2.1"
+            },
+            "time": "2023-02-02T13:43:46+00:00"
         },
         {
             "name": "simplesoftwareio/simple-qrcode",
