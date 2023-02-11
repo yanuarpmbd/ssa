@@ -4,8 +4,7 @@ return [
     'user-model' => \App\Models\User::class,
 
     // You can extend the package's TicketResource to customize to your needs.
-    //'ticket-resource' => Sgcomptech\FilamentTicketing\Filament\Resources\TicketResource::class,
-    'ticket-resource' => App\Filament\Resources\LayananTIResource::class,
+    'ticket-resource' => Sgcomptech\FilamentTicketing\Filament\Resources\TicketResource::class,
 
     // whether a ticket must be strictly interacted with another model
     'is_strictly_interacted' => false,
@@ -41,7 +40,7 @@ return [
     ],
 
     // use authorization
-    'use_authorization' => false,
+    'use_authorization' => true,
 
     // event broadcast channel
     'event_broadcast_channel' => 'ticket-channel',
