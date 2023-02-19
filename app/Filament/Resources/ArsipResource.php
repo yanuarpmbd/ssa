@@ -43,6 +43,7 @@ class ArsipResource extends Resource
     protected static ?string $pluralLabel = 'Dokumen';
 
     protected static ?string $recordTitleAttribute = 'nama_arsip';
+    
 
     public static function form(Form $form): Form
     {
@@ -225,6 +226,7 @@ class ArsipResource extends Resource
     {
         return [
             'index' => Pages\ListArsips::route('/'),
+            'arsipaktif' => Pages\ArsipAktifs::route('/arsipaktif'),
             'create' => Pages\CreateArsip::route('/create'),
             'edit' => Pages\EditArsip::route('/{record}/edit'),
             'view' => Pages\ViewArsip::route('/{record}'),

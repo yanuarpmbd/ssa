@@ -16,6 +16,7 @@ use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Sgcomptech\FilamentTicketing\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
 use Sgcomptech\FilamentTicketing\Models\Ticket;
+use Illuminate\Support\Str;
 
 class TicketResource extends Resource
 {
@@ -83,10 +84,7 @@ class TicketResource extends Resource
                     Select::make('priority')
                         ->translateLabel()
                         ->options($priorities)
-                        ->required()
-                        ->disabled(fn ($record) => ($cannotManageAllTickets &&
-                            ($cannotManageAssignedTickets || $record?->assigned_to_id != $user->id)
-                        )),
+                        ->required(),
                     Textarea::make('content')
                         ->translateLabel()
                         ->required()
