@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\BukuTamu;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,5 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/bukutamu', BukuTamu::class);
