@@ -39,23 +39,25 @@ class BukuTamuResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('nama'),
-                TextInput::make('no_telp'),
-                TextInput::make('asal_instansi'),
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->label('Nama yang dituju')
-                    ->searchable()
-                    ->preload()
-                    ->required(),
-                MarkdownEditor::make('keperluan'),
-                FileUpload::make('file_upload')
-                    ->acceptedFileTypes(['application/pdf'])
-                    ->disk('public')
-                    ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
-                    ->preserveFilenames()
-                    ->label('File Upload'),
-
+                 TextInput::make('nama')
+                ->required(),
+            TextInput::make('no_telp')
+                ->required(),
+            TextInput::make('asal_instansi')
+                ->required(),
+            Select::make('user_id')
+                ->label('Nama yang dituju')
+                ->relationship('user', 'name')
+                ->searchable()
+                ->required(),
+            MarkdownEditor::make('keperluan')
+                ->required(),
+            FileUpload::make('file_upload')
+                ->acceptedFileTypes(['application/pdf'])
+                ->disk('public')
+                ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
+                ->preserveFilenames()
+                ->label('File Upload'),
             ]);
     }
 

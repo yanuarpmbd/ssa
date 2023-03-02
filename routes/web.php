@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/bukutamu', BukuTamu::class);
+Route::get('/buku-tamu', BukuTamu::class);

@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "3x1io/filament-user": "^1.1",
         "awcodes/filament-quick-create": "^1.0",
+        "awcodes/filament-tiptap-editor": "^2.2",
         "barryvdh/laravel-dompdf": "^1.0",
         "barryvdh/laravel-snappy": "^1.0",
         "bezhansalleh/filament-shield": "^1.1",
