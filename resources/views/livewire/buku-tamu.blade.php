@@ -1,4 +1,4 @@
-<div class="min-w-screen min-h-screen bg-amber-400 flex items-center justify-center px-10 py-10">
+<div class="min-w-screen min-h-screenflex items-center justify-center px-10 py-10">
     <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-auto">
         <div class="md:flex w-full">
             <div class="hidden md:block w-1/2 bg-gray-200 py-10 px-10">

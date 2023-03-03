@@ -21,7 +21,7 @@
     @stack('scripts')
 </head>
 
-<body class="flex items-center justify-center bg-fixed bg-cover" style="background-image: url({{asset('/images/E.png')}})">
+<body class="flex items-center justify-center bg-fixed bg-auto" style="background-image: url({{asset('/images/E.png')}})">
     {{ $slot }}
     @livewire('notifications')
 </body>
