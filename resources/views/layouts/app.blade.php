@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ config('app.name') }}</title>
-    <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <style>
         [x-cloak] {
@@ -19,6 +18,7 @@
     @livewireStyles
     @livewireScripts
     @stack('scripts')
+    <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
 <body class="flex items-center justify-center bg-fixed bg-auto" style="background-image: url({{asset('/images/E.png')}})">
