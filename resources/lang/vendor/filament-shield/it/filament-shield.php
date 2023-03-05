@@ -7,11 +7,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'column.name' => 'Nama',
-    'column.guard_name' => 'Nama Penjaga',
-    'column.roles' => 'Peran',
-    'column.permissions' => 'Izin',
-    'column.updated_at' => 'Dirubah',
+    'column.name' => 'Nome',
+    'column.guard_name' => 'Nome Guard',
+    'column.roles' => 'Ruoli',
+    'column.permissions' => 'Permessi',
+    'column.updated_at' => 'Aggiornato a',
 
     /*
     |--------------------------------------------------------------------------
@@ -19,11 +19,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'field.name' => 'Nama',
-    'field.guard_name' => 'Nama Penjaga',
-    'field.permissions' => 'Izin',
-    'field.select_all.name' => 'Pilih Semua',
-    'field.select_all.message' => 'Aktifkan semua izin yang <span class="text-primary font-medium">Tersedia</span> untuk Peran ini.',
+    'field.name' => 'Nome',
+    'field.guard_name' => 'Nome Guard',
+    'field.permissions' => 'Permessi',
+    'field.select_all.name' => 'Seleziona Tutto',
+    'field.select_all.message' => 'Abilita tutti i Permessi attualmente <span class="text-primary font-medium">Abilitati</span> per questo ruolo',
 
     /*
     |--------------------------------------------------------------------------
@@ -31,11 +31,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'nav.group' => 'Pengaturan',
-    'nav.role.label' => 'Peran',
+    'nav.group' => 'Filament Shield',
+    'nav.role.label' => 'Ruoli',
     'nav.role.icon' => 'heroicon-o-shield-check',
-    'resource.label.role' => 'Peran',
-    'resource.label.roles' => 'Peran',
+    'resource.label.role' => 'Ruolo',
+    'resource.label.roles' => 'Ruoli',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,11 +43,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'section' => 'Entitas',
-    'resources' => 'Sumber Daya',
-    'widgets' => 'Widget',
-    'pages' => 'Halaman',
-    'custom' => 'Izin Kustom',
+    'section' => 'Entities',
+    'resources' => 'Resources',
+    'widgets' => 'Widgets',
+    'pages' => 'Pages',
+    'custom' => 'Permessi Personalizzati',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'forbidden' => 'Kamu tidak punya izin akses',
+    'forbidden' => 'Non hai i permessi di accesso',
 
     /*
     |--------------------------------------------------------------------------

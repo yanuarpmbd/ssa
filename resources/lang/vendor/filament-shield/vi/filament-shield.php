@@ -7,11 +7,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'column.guard_name' => 'Guard-Name',
-    'column.name' => 'Name',
-    'column.permissions' => 'Berechtigungen',
-    'column.roles' => 'Rollen',
-    'column.updated_at' => 'Aktualisiert am',
+    'column.name' => 'Tên',
+    'column.guard_name' => 'Tên guard',
+    'column.roles' => 'Vai trò',
+    'column.permissions' => 'Quyền',
+    'column.updated_at' => 'Cập nhật lúc',
 
     /*
     |--------------------------------------------------------------------------
@@ -19,11 +19,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'field.guard_name' => 'Guard-Name',
-    'field.name' => 'Name',
-    'field.permissions' => 'Berechtigungen',
-    'field.select_all.message' => 'Aktivierung aller Berechtigungen, die derzeit für diese Rolle <span class="text-primary font-medium">aktiviert</span> sind',
-    'field.select_all.name' => 'Alle auswählen',
+    'field.name' => 'Tên',
+    'field.guard_name' => 'Tên guard',
+    'field.permissions' => 'Quyền',
+    'field.select_all.name' => 'Chọn tất cả',
+    'field.select_all.message' => 'Bật tất cả Quyền hiện tại <span class="text-primary font-medium">Đã bật</span> cho vai trò này',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,10 +32,10 @@ return [
     */
 
     'nav.group' => 'Filament Shield',
+    'nav.role.label' => 'Vai trò',
     'nav.role.icon' => 'heroicon-o-shield-check',
-    'nav.role.label' => 'Rollen',
-    'resource.label.role' => 'Rolle',
-    'resource.label.roles' => 'Rollen',
+    'resource.label.role' => 'Vai trò',
+    'resource.label.roles' => 'Vai trò',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,11 +43,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'section' => 'Entitäten',
-    'resources' => 'Ressourcen',
-    'widgets' => 'Widgets',
-    'pages' => 'Seiten',
-    'custom' => 'benutzerdefinierte Berechtigungen',
+    'section' => 'Thực thể',
+    'resources' => 'Tài nguyên',
+    'widgets' => 'Widget',
+    'pages' => 'Trang',
+    'custom' => 'Quyền tùy chỉnh',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,7 +55,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'forbidden' => 'Sie haben keine Zugangsberechtigung',
+    'forbidden' => 'Bạn không có quyền để truy cập.',
 
     /*
     |--------------------------------------------------------------------------
@@ -64,17 +64,17 @@ return [
     */
 
     'resource_permission_prefixes_labels' => [
-        'view' => 'Anzeigen',
-        'view_any' => 'Alle anzeigen',
-        'create' => 'Erstellen',
-        'update' => 'Bearbeiten',
-        'delete' => 'Löschen',
-        'delete_any' => 'Alle löschen',
-        'force_delete' => 'Endgültig löschen',
-        'force_delete_any' => 'Alle endgültig löschen',
-        // 'reorder' => 'Reorder',
-        // 'replicate' => 'Replicate',
-        'restore' => 'Wiederherstellen',
-        'restore_any' => 'Alle wiederherstellen',
+        'view' => 'Xem',
+        'view_any' => 'Xem bất kỳ',
+        'create' => 'Tạo',
+        'update' => 'Cập nhật',
+        'delete' => 'Xóa',
+        'delete_any' => 'Xóa bất kỳ',
+        'force_delete' => 'Xóa vĩnh viễn',
+        'force_delete_any' => 'Xóa vĩnh viễn bất kỳ',
+        'restore' => 'Khôi phục',
+        'reorder' => 'Sắp xếp lại',
+        'restore_any' => 'Khôi phục bất kỳ',
+        'replicate' => 'Nhân bản',
     ],
 ];

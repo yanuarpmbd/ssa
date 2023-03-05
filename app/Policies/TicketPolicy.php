@@ -3,11 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
-use Sgcomptech\FilamentTicketing\Interfaces\TicketPolicies;
 use Sgcomptech\FilamentTicketing\Models\Ticket;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TicketPolicy implements TicketPolicies
+class TicketPolicy
 {
     use HandlesAuthorization;
 
@@ -26,14 +25,12 @@ class TicketPolicy implements TicketPolicies
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
+     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user, Ticket $ticket)
     {
-        return $user->can('manage all tickets')
-        || $user->can('assign tickets')
-        || ($user->can('manage assigned tickets') && $ticket->assigned_to_id == $user->id)
-        || $ticket->user_id == $user->id;
+        return $user->can('view_ticket');
     }
 
     /**
@@ -51,23 +48,22 @@ class TicketPolicy implements TicketPolicies
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
+     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user, Ticket $ticket)
     {
-        return $user->can('manage all tickets')
-            || $user->can('assign tickets')
-            || ($user->can('manage assigned tickets') && $ticket->assigned_to_id == $user->id)
-            || $ticket->user_id == $user->id;
+        return $user->can('update_ticket');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
+     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user)
+    public function delete(User $user, Ticket $ticket)
     {
         return $user->can('delete_ticket');
     }
@@ -83,18 +79,73 @@ class TicketPolicy implements TicketPolicies
         return $user->can('delete_any_ticket');
     }
 
-    public function manageAllTickets($user): bool
+    /**
+     * Determine whether the user can permanently delete.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function forceDelete(User $user, Ticket $ticket)
     {
-        return $user->can('Manage All Tickets');
+        return $user->can('force_delete_ticket');
     }
 
-    public function manageAssignedTickets($user): bool
+    /**
+     * Determine whether the user can permanently bulk delete.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function forceDeleteAny(User $user)
     {
-        return $user->can('Manage Assigned Tickets');
+        return $user->can('force_delete_any_ticket');
     }
 
-    public function assignTickets($user): bool
+    /**
+     * Determine whether the user can restore.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restore(User $user, Ticket $ticket)
     {
-        return $user->can('Assign Tickets');
+        return $user->can('restore_ticket');
     }
+
+    /**
+     * Determine whether the user can bulk restore.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function restoreAny(User $user)
+    {
+        return $user->can('restore_any_ticket');
+    }
+
+    /**
+     * Determine whether the user can replicate.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function replicate(User $user, Ticket $ticket)
+    {
+        return $user->can('replicate_ticket');
+    }
+
+    /**
+     * Determine whether the user can reorder.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function reorder(User $user)
+    {
+        return $user->can('reorder_ticket');
+    }
+
 }

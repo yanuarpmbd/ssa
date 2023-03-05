@@ -9,6 +9,7 @@ return [
 
     'column.name' => 'Nom',
     'column.guard_name' => 'Nom du Guard',
+    'column.roles' => 'Rôles',
     'column.permissions' => 'Permissions',
     'column.updated_at' => 'Mis à jour à',
 
@@ -31,8 +32,8 @@ return [
     */
 
     'nav.group' => 'Filament Shield',
-    'nav.label' => 'Rôles',
-    'nav.icon' => 'heroicon-o-shield-check',
+    'nav.role.label' => 'Rôles',
+    'nav.role.icon' => 'heroicon-o-shield-check',
     'resource.label.role' => 'Rôle',
     'resource.label.roles' => 'Rôles',
 
@@ -41,14 +42,39 @@ return [
     | Section & Tabs
     |--------------------------------------------------------------------------
     */
+
     'section' => 'Entités',
     'resources' => 'Ressources',
     'widgets' => 'Widgets',
     'pages' => 'Pages',
     'custom' => 'Permissions personnalisées',
 
-    /**
-     * HasPageShield Trait Forbidden Message
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Messages
+    |--------------------------------------------------------------------------
+    */
+
     'forbidden' => 'Vous n\'avez pas la permission d\'accéder',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Resource Permissions' Labels
+    |--------------------------------------------------------------------------
+    */
+
+    // 'resource_permission_prefixes_labels' => [
+    //     'view' => 'View',
+    //     'view_any' => 'View Any',
+    //     'create' => 'Create',
+    //     'update' => 'Update',
+    //     'delete' => 'Delete',
+    //     'delete_any' => 'Delete Any',
+    //     'force_delete' => 'Force Delete',
+    //     'force_delete_any' => 'Force Delete Any',
+    //     'restore' => 'Restore',
+    //     'replicate' => 'Replicate',
+    //     'reorder' => 'Reorder',
+    //     'restore_any' => 'Restore Any',
+    // ],
 ];
