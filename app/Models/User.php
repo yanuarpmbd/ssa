@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use PhpParser\Node\Expr\FuncCall;
 use Spatie\Permission\Traits\HasRoles;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use Ramsey\Uuid\Uuid;
@@ -23,6 +24,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'nip',
+        'jabatan',
+        'unit_kerja_id',
+        'status',
         'password',
     ];
 
@@ -42,6 +47,11 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'status' => 'boolean',
     ];
+
+    public function unitKerja()
+    {
+        return $this->belongsTo(UnitKerja::class);
+    }
 }

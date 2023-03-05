@@ -29,18 +29,21 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
     {
         return [
             TextInput::make('nama')
+                ->disableautocomplete()
                 ->required(),
             TextInput::make('no_telp')
-                ->tel()
-                ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                ->mask(fn (TextInput\Mask $mask) => $mask->pattern('0000-0000-0000-0')->numeric())
+                ->disableautocomplete()
                 ->required(),
             TextInput::make('asal_instansi')
+                ->disableautocomplete()
                 ->required(),
             Select::make('user_id')
                 ->label('Nama yang dituju')
                 ->options(User::all()->pluck('name', 'id'))
                 ->required(),
             Textarea::make('keperluan')
+                ->disableautocomplete()
                 ->required(),
             FileUpload::make('file_upload')
                 ->disk('public')
