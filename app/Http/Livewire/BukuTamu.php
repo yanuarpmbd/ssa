@@ -45,6 +45,7 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
                 ->required()
                 ->label('Asal Instansi'),
             Select::make('user_id')
+                ->searchable()
                 ->label('Nama yang dituju')
                 ->options(User::where('status', '1')->pluck('name', 'id'))
                 ->required(),
