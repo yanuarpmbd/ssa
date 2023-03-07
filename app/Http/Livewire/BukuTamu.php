@@ -13,6 +13,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
+use Closure;
 
 class BukuTamu extends Component implements Forms\Contracts\HasForms
 {
@@ -42,13 +43,21 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
                 ->label('Nama yang dituju')
                 ->options(User::where('status', '1')->pluck('name', 'id'))
                 ->required(),
-            Textarea::make('keperluan')
-                ->disableautocomplete()
+            Select::make('keperluan')
+                ->options([
+                    'dinas' => 'Keperluan Dinas',
+                    'pribadi' => 'Keperluan Pribadi',
+                ])
+                ->reactive()
+                ->required(),
+            TextArea::make('keterangan')
+                ->disableAutocomplete()
                 ->required(),
             FileUpload::make('file_upload')
                 ->disk('public')
                 ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
-                ->label('File Upload'),
+                ->label('File Upload')
+                ->hidden(fn (Closure $get) => $get('keperluan') == 'pribadi' or $get('keperluan') == null),
         ];
     }
 

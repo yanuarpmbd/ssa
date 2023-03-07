@@ -11,7 +11,7 @@
                 </div>
                 <form wire:submit.prevent="create">
                     {{ $this->form }}
-                    <button type="submit" class="block w-full max-w-xs mx-auto bg-amber-500 hover:bg-amber-700 focus:bg-amber-700 text-white rounded-lg px-2 py-2 font-semibold">
+                    <button type="submit" class="block w-full max-w-xs mx-auto bg-amber-500 hover:bg-amber-700 focus:bg-amber-700 text-white rounded-lg px-2 py-2 font-semibold mt-2">
                         Submit
                     </button>
                 </form>

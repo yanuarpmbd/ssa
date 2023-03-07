@@ -9,7 +9,7 @@ class BukuTamu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'no_telp', 'asal_instansi', 'user_id', 'keperluan', 'file_upload'];
+    protected $fillable = ['nama', 'no_telp', 'asal_instansi', 'user_id', 'keperluan', 'keterangan', 'file_upload'];
 
     public function user(){
         return $this->belongsTo(User::class);

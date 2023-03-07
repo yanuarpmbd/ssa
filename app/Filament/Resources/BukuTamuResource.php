@@ -7,7 +7,7 @@ use App\Filament\Resources\BukuTamuResource\RelationManagers;
 use App\Models\BukuTamu;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\TextArea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -18,6 +18,8 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
+use App\Models\User;
+use Closure;
 
 class BukuTamuResource extends Resource
 {
@@ -39,25 +41,35 @@ class BukuTamuResource extends Resource
     {
         return $form
             ->schema([
-                 TextInput::make('nama')
-                ->required(),
-            TextInput::make('no_telp')
-                ->required(),
-            TextInput::make('asal_instansi')
-                ->required(),
-            Select::make('user_id')
-                ->label('Nama yang dituju')
-                ->relationship('user', 'name')
-                ->searchable()
-                ->required(),
-            MarkdownEditor::make('keperluan')
-                ->required(),
-            FileUpload::make('file_upload')
-                ->acceptedFileTypes(['application/pdf'])
-                ->disk('public')
-                ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
-                ->preserveFilenames()
-                ->label('File Upload'),
+                TextInput::make('nama')
+                    ->disableautocomplete()
+                    ->required(),
+                TextInput::make('no_telp')
+                    ->mask(fn (TextInput\Mask $mask) => $mask->pattern('0000-0000-0000-0')->numeric())
+                    ->disableautocomplete()
+                    ->required(),
+                TextInput::make('asal_instansi')
+                    ->disableautocomplete()
+                    ->required(),
+                Select::make('user_id')
+                    ->label('Nama yang dituju')
+                    ->options(User::where('status', '1')->pluck('name', 'id'))
+                    ->required(),
+                Select::make('keperluan')
+                    ->options([
+                        'dinas' => 'Keperluan Dinas',
+                        'pribadi' => 'Keperluan Pribadi',
+                    ])
+                    ->reactive()
+                    ->required(),
+                TextArea::make('keterangan')
+                    ->disableAutocomplete()
+                    ->required(),
+                FileUpload::make('file_upload')
+                    ->disk('public')
+                    ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
+                    ->label('File Upload')
+                    ->hidden(fn (Closure $get) => $get('keperluan') == 'pribadi' or $get('keperluan') == null),
             ]);
     }
 
@@ -72,6 +84,11 @@ class BukuTamuResource extends Resource
                     ->sortable()
                     ->wrap()
                     ->label('Nama yg dituju'),
+                TextColumn::make('keperluan')
+                    ->enum([
+                        'dinas' => 'Keperluan Dinas',
+                        'pribadi' => 'Keperluan Pribadi',
+                    ]),
                 TextColumn::make('created_at')->label('Waktu  Kunjungan'),
             ])
             ->filters([

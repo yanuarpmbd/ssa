@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('no_telp');
             $table->string('asal_instansi');
             $table->string('user_id');
-            $table->longText('keperluan');
+            $table->string('keperluan');
+            $table->longText('keterangan');
             $table->string('file_upload')->nullable();
             $table->timestamps();
         });
