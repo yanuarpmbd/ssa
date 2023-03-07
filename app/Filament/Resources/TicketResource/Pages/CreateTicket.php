@@ -56,4 +56,9 @@ class CreateTicket extends CreateRecord
     {
         return __('Create Ticket');
     }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

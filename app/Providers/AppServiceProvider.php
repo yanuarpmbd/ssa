@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         Filament::serving(function () {
             Filament::registerNavigationGroups([
                 'Layanan TI',
+                'Buku Tamu',
                 'Arsip',
                 'Pengaturan',
                 'Pengaturan Arsip',

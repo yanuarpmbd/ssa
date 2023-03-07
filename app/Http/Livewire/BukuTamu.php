@@ -40,7 +40,7 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
                 ->required(),
             Select::make('user_id')
                 ->label('Nama yang dituju')
-                ->options(User::all()->pluck('name', 'id'))
+                ->options(User::where('status', '1')->pluck('name', 'id'))
                 ->required(),
             Textarea::make('keperluan')
                 ->disableautocomplete()

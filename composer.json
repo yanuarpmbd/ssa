@@ -28,6 +28,7 @@
         "pxlrbt/filament-excel": "^0.1.3",
         "pxlrbt/filament-spotlight": "^0.3.2",
         "ramsey/uuid": "4.x-dev",
+        "ryangjchandler/filament-profile": "^0.2.2",
         "sgcomptech/filament-ticketing": "^1.2",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^4.5",
