@@ -2,7 +2,7 @@
     <div class="bg-gray-100 text-gray-500 rounded-3xl shadow-xl w-full overflow-auto">
         <div class="md:flex w-full">
             <div class="hidden md:block w-1/2 bg-gray-200 py-10 px-10">
-                <img src="{{asset('/images/lambang-bpk.png')}}" width="100%" height="auto">
+                <img src="{{asset('/images/F.png')}}" width="100%" height="auto">
             </div>
             <div class="w-full md:w-1/2 py-10 px-5 md:px-10">
                 <div class="text-center mb-10">

@@ -21,7 +21,7 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
-<body class="flex items-center justify-center bg-fixed bg-auto" style="background-image: url({{asset('/images/E.png')}})">
+<body class="flex items-center justify-center bg-fixed bg-auto" style="background-image: url({{asset('/images/G.png')}})">
     {{ $slot }}
     @livewire('notifications')
 </body>
