@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.0.2",
         "3x1io/filament-user": "^1.1.7",
+        "abanoubnassem/filament-grecaptcha-field": "^0.0.5",
         "awcodes/filament-quick-create": "^1.0",
         "awcodes/filament-tiptap-editor": "^2.2",
         "barryvdh/laravel-dompdf": "^1.0",

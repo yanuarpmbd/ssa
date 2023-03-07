@@ -14,12 +14,15 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Notifications\Notification;
 use Closure;
+use AbanoubNassem\FilamentGRecaptchaField\Forms\Components\GRecaptcha;
 
 class BukuTamu extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
 
     public $nama, $no_telp, $asal_instansi, $user_id, $keperluan, $file_upload;
+
+    public $captcha = '';
 
     public function mount(): void
     {
@@ -58,6 +61,7 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
                 ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
                 ->label('File Upload')
                 ->hidden(fn (Closure $get) => $get('keperluan') == 'pribadi' or $get('keperluan') == null),
+            GRecaptcha::make('captcha'),
         ];
     }
 
