@@ -14,6 +14,9 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Forms\Components\Grid;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -62,14 +65,16 @@ class BukuTamuResource extends Resource
                     ])
                     ->reactive()
                     ->required(),
-                TextArea::make('keterangan')
-                    ->disableAutocomplete()
-                    ->required(),
                 FileUpload::make('file_upload')
                     ->disk('public')
                     ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
                     ->label('File Upload')
                     ->hidden(fn (Closure $get) => $get('keperluan') == 'pribadi' or $get('keperluan') == null),
+                Grid::make()->schema([
+                    TextArea::make('keterangan')
+                        ->disableAutocomplete()
+                        ->required(),
+                ])->columns(1),
             ]);
     }
 
@@ -78,8 +83,10 @@ class BukuTamuResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('nama'),
-                TextColumn::make('no_telp'),
-                TextColumn::make('asal_instansi'),
+                TextColumn::make('no_telp')
+                    ->label('Nomor Telepon'),
+                TextColumn::make('asal_instansi')
+                    ->label('Asal Instansi'),
                 TextColumn::make('user.name')
                     ->sortable()
                     ->wrap()
@@ -89,10 +96,31 @@ class BukuTamuResource extends Resource
                         'dinas' => 'Keperluan Dinas',
                         'pribadi' => 'Keperluan Pribadi',
                     ]),
-                TextColumn::make('created_at')->label('Waktu  Kunjungan'),
+                TextColumn::make('created_at')->label('Waktu Kunjungan'),
             ])
             ->filters([
-                //
+                Filter::make('waktu_kunjungan')
+                    ->form([
+                        Forms\Components\DatePicker::make('dari_tanggal'),
+                        Forms\Components\DatePicker::make('sampai_tanggal'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['dari_tanggal'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['sampai_tanggal'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+                    ->label('Tanggal Arsip'),
+                SelectFilter::make('keperluan')
+                    ->options([
+                        'dinas' => 'Keperluan Dinas',
+                        'pribadi' => 'Keperluan Pribadi',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

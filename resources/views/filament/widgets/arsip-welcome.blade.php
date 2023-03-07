@@ -1,9 +1,9 @@
 <x-filament::widget class="filament-filament-info-widget">
     <x-filament::card class="relative">
-        <div class="relative h-12 flex flex-col space-y-2">
+        <div class="relative flex flex-col space-y-2">
             <div class="space-y-1">
                 <h2 class="text-lg sm:text-xl font-bold tracking-tight">
-                    Subbag Umum dan TI BPK Perwakilan Sulawesi Utara<br>
+                    Sistem Online Pelayanan Umum Terpadu dalam genggamAN<br>
                 </h2>
                 <a
                     href="{{ asset('/images/Manual Book E-Arsip BPK Sulut.pdf') }}"

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('arsips', function (Blueprint $table) {
             $table->id();
+            $table->uuid('identifier');
             $table->integer('kode_arsip');
             $table->integer('unit_kerja_id');
             $table->string('nama_arsip');

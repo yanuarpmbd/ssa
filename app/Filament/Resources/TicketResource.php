@@ -22,6 +22,11 @@ class TicketResource extends Resource
 {
     protected static ?string $model = Ticket::class;
 
+    public static function getRecordRouteKeyName(): string
+    {
+        return 'identifier';
+    }
+
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
 
     protected static function getNavigationLabel(): string
@@ -205,7 +210,7 @@ class TicketResource extends Resource
         return [
             'index' => TicketResource\Pages\ListTicket::route('/'),
             'create' => TicketResource\Pages\CreateTicket::route('/create'),
-            'edit' => TicketResource\Pages\EditTicket::route('/{record}/edit'),
+            'edit' => TicketResource\Pages\EditTicket::route('/{record:identifier}/edit'),
         ];
     }
 }

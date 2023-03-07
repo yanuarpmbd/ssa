@@ -11,7 +11,7 @@ class Arsip extends Model
 {
     use HasFactory, HasCounter;
 
-    protected $fillable = ['user_id', 'kode_arsip', 'unit_kerja_id', 'tingkat_perkembangan', 'nama_arsip', 'rak_id', 'dus_id', 'status', 'deskripsi', 'tanggal_arsip', 'upload_arsip'];
+    protected $fillable = ['identifier', 'user_id', 'kode_arsip', 'unit_kerja_id', 'tingkat_perkembangan', 'nama_arsip', 'rak_id', 'dus_id', 'status', 'deskripsi', 'tanggal_arsip', 'upload_arsip'];
 
     protected $casts = [
         'status' => 'boolean',

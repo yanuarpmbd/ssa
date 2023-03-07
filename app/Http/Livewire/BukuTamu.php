@@ -38,10 +38,12 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
             TextInput::make('no_telp')
                 ->mask(fn (TextInput\Mask $mask) => $mask->pattern('0000-0000-0000-0')->numeric())
                 ->disableautocomplete()
-                ->required(),
+                ->required()
+                ->label('Nomor Telepon'),
             TextInput::make('asal_instansi')
                 ->disableautocomplete()
-                ->required(),
+                ->required()
+                ->label('Asal Instansi'),
             Select::make('user_id')
                 ->label('Nama yang dituju')
                 ->options(User::where('status', '1')->pluck('name', 'id'))
@@ -61,7 +63,6 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
                 ->directory('BukuTamu/' . Carbon::now()->format('F Y'))
                 ->label('File Upload')
                 ->hidden(fn (Closure $get) => $get('keperluan') == 'pribadi' or $get('keperluan') == null),
-            GRecaptcha::make('captcha'),
         ];
     }
 
