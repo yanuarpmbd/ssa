@@ -22,6 +22,11 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
+    public static function getRecordRouteKeyName(): string
+    {
+        return 'identifier';
+    }
+
     protected static ?int $navigationSort = 9;
 
     protected static ?string $navigationIcon = 'heroicon-o-lock-closed';
@@ -142,7 +147,7 @@ class UserResource extends Resource
         return [
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'edit' => Pages\EditUser::route('/{record:identifier}/edit'),
         ];
     }
 }
