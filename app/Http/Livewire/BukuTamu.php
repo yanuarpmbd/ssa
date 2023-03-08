@@ -50,6 +50,7 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
                 ->options(User::where('status', '1')->pluck('name', 'id'))
                 ->required(),
             Select::make('keperluan')
+                ->searchable()
                 ->options([
                     'dinas' => 'Keperluan Dinas',
                     'pribadi' => 'Keperluan Pribadi',
