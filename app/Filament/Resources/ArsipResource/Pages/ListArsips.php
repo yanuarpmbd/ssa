@@ -6,6 +6,8 @@ use App\Filament\Resources\ArsipResource;
 use App\Models\Arsip;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ListArsips extends ListRecords
 {
@@ -16,6 +18,11 @@ class ListArsips extends ListRecords
     protected function getTableFiltersFormColumns(): int
     {
         return 2;
+    }
+
+    protected function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()->where('unit_kerja_id', Auth::user()->unit_kerja_id);
     }
 
     public function updateRetensi()

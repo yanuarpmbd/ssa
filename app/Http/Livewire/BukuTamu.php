@@ -57,7 +57,7 @@ class BukuTamu extends Component implements Forms\Contracts\HasForms
                 ])
                 ->reactive()
                 ->required(),
-            TextArea::make('keterangan')
+            Textarea::make('keterangan')
                 ->disableAutocomplete()
                 ->required(),
             FileUpload::make('file_upload')

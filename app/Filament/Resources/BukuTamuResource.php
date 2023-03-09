@@ -7,7 +7,7 @@ use App\Filament\Resources\BukuTamuResource\RelationManagers;
 use App\Models\BukuTamu;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -71,7 +71,7 @@ class BukuTamuResource extends Resource
                     ->label('File Upload')
                     ->hidden(fn (Closure $get) => $get('keperluan') == 'pribadi' or $get('keperluan') == null),
                 Grid::make()->schema([
-                    TextArea::make('keterangan')
+                    Textarea::make('keterangan')
                         ->disableAutocomplete()
                         ->required(),
                 ])->columns(1),

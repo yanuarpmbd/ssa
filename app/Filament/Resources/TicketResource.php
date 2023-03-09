@@ -57,15 +57,16 @@ class TicketResource extends Resource
     public static function form(Form $form): Form
     {
         $user = auth()->user();
-        if ($user->roles[0]->name == 'super_admin') {
-            $cannotManageAllTickets = false;
-            $cannotManageAssignedTickets = false;
-            $cannotAssignTickets = false;
-        } else {
+        if (config('filament-ticketing.use_authorization')) {
             $cannotManageAllTickets = $user->cannot('manageAllTickets', Ticket::class);
             $cannotManageAssignedTickets = $user->cannot('manageAssignedTickets', Ticket::class);
             $cannotAssignTickets = $user->cannot('assignTickets', Ticket::class);
+        } else {
+            $cannotManageAllTickets = false;
+            $cannotManageAssignedTickets = false;
+            $cannotAssignTickets = false;
         }
+
         $titles = array_map(fn ($e) => __($e), config('filament-ticketing.titles'));
         $statuses = array_map(fn ($e) => __($e), config('filament-ticketing.statuses'));
         $priorities = array_map(fn ($e) => __($e), config('filament-ticketing.priorities'));
@@ -131,12 +132,12 @@ class TicketResource extends Resource
     public static function table(Table $table): Table
     {
         $user = auth()->user();
-        if ($user->roles[0]->name == 'super_admin') {
-            $canManageAllTickets = true;
-            $canManageAssignedTickets = true;
-        } else {
+        if (config('filament-ticketing.use_authorization')) {
             $canManageAllTickets = $user->can('manageAllTickets', Ticket::class);
             $canManageAssignedTickets = $user->can('manageAssignedTickets', Ticket::class);
+        } else {
+            $canManageAllTickets = true;
+            $canManageAssignedTickets = true;
         }
 
         $titles = array_map(fn ($e) => __($e), config('filament-ticketing.titles'));

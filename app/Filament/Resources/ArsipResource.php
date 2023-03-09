@@ -234,7 +234,7 @@ class ArsipResource extends Resource
     }
 
     protected static function getNavigationBadge(): ?string
-    {
-        return static::$model::all()->count();
-    }
+{
+    return static::getModel()::count();
+}
 }
