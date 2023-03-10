@@ -20,3 +20,11 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 - [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
+
+composer install
+composer update
+php artisan storage:link
+php artisan optimize:clear
+php artisan make:counter number_of_arsip_views Arsip 0 1
+php artisan shield:super-admin
+php artisan shield:generate
