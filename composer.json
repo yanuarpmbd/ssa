@@ -19,6 +19,7 @@
         "filament/spatie-laravel-settings-plugin": "^2.12",
         "filament/spatie-laravel-translatable-plugin": "^2.12",
         "guzzlehttp/guzzle": "^7.2",
+        "icetalker/filament-stepper": "^1.0",
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",

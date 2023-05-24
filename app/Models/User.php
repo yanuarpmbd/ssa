@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UnitKerja::class);
     }
+
+    public function pengeluaranPersediaan(){
+        return $this->hasMany(PengeluaranPersediaan::class);
+    }
 }
