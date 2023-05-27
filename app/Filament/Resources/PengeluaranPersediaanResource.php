@@ -36,11 +36,6 @@ class PengeluaranPersediaanResource extends Resource
         return static::$model::get()->count();
     }
 
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
-
     public static function form(Form $form): Form
     {
         return $form
@@ -61,12 +56,11 @@ class PengeluaranPersediaanResource extends Resource
                                     ->options(Persediaan::query()->pluck('nama_barang', 'id'))
                                     ->label('Nama Barang')
                                     ->reactive()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $set('stock', Persediaan::find($state)?->jumlah ?? 0))
+                                    ->afterStateUpdated(fn ($state, callable $set) => $set('stock', Persediaan::find($state)?->jumlah ?? 0) AND $set('satuan', Persediaan::find($state)?->satuan ?? 0))
                                     ->required(),
                                 TextInput::make('stock')
                                     ->label('Sisa Barang')
                                     ->disabled()
-                                    ->rules(['integer', 'min:0'])
                                     ->numeric(),
                                 Stepper::make('jumlah')
                                     ->label('Jumlah Permintaan')
@@ -76,15 +70,17 @@ class PengeluaranPersediaanResource extends Resource
                                         $set('stock', Persediaan::find($get('persediaan_id'))?->jumlah - $state);
                                     })
                                     ->rule(fn ($get) => static function ($attribute, $value, $fail) use ($get) {
-                                        $stockWarehouse = Persediaan::where('persediaan_id', $get('persediaan_id'))->first();
-                                        dd($stockWarehouse);
+                                        $stockWarehouse = Persediaan::where('id', $get('persediaan_id'))->first();
                                         if ($stockWarehouse && $stockWarehouse->jumlah < $value) {
-                                            $fail('Insufficient stock');
+                                            $fail('Jumlah Permintaan Melebihi Sisa Barang');
                                         }
                                     })
                                     ->required(),
+                                TextInput::make('satuan')
+                                    ->label('Satuan')
+                                    ->disabled()
                             ])
-                            ->columns(3)
+                            ->columns(4)
                             ->required(),
                     ]),
                 Grid::make(1)
