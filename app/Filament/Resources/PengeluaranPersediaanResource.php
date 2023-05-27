@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PengeluaranPersediaanResource\Pages;
 use App\Filament\Resources\PengeluaranPersediaanResource\RelationManagers;
 use App\Models\PengeluaranPersediaan;
+use App\Models\PengeluaranPersediaanItem;
+use App\Models\Persediaan;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
@@ -37,17 +39,16 @@ class PengeluaranPersediaanResource extends Resource
                         Select::make('pegawai_id')
                             ->relationship('pegawai', 'name')
                             ->label('Nama Pegawai')
-                            ->searchable()
                             ->required(),
                     ]),
                 Grid::make(1)
                     ->schema([
                         Repeater::make('barang')
+                            ->relationship()
                             ->schema([
-                                Select::make('barang_id')
-                                    ->relationship('barang', 'nama_barang')
+                                Select::make('persediaan_id')
+                                    ->options(Persediaan::query()->pluck('nama_barang', 'id'))
                                     ->label('Nama Barang')
-                                    ->searchable()
                                     ->required(),
                                 Stepper::make('jumlah')
                                     ->required(),
@@ -65,7 +66,17 @@ class PengeluaranPersediaanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([])
+            ->columns([
+                TextColumn::make('pegawai.name'),
+                TextColumn::make('tgl_pengeluaran')
+                    ->label('Tanggal Pengeluaran')
+                    ->date()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->label('Tanggal dibuat')
+                    ->date()
+                    ->toggleable(),
+            ])
             ->filters([
                 //
             ])

@@ -10,6 +10,16 @@ class ListPengeluaranPersediaans extends ListRecords
 {
     protected static string $resource = PengeluaranPersediaanResource::class;
 
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'tgl_pengeluaran';
+    }
+
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'desc';
+    }
+
     protected function getActions(): array
     {
         return [

@@ -10,8 +10,4 @@ class Persediaan extends Model
     use HasFactory;
 
     protected $fillable = ['kode_barang', 'nama_barang', 'jumlah', 'satuan'];
-
-    public function pengeluaranPersediaan(){
-        return $this->hasMany(PengeluaranPersediaan::class);
-    }
 }
