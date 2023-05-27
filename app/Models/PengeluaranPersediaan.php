@@ -10,7 +10,11 @@ class PengeluaranPersediaan extends Model
 {
     use HasFactory, Uuid;
 
-    protected $fillable = ['identifier', 'pegawai_id', 'barang_id', 'jumlah', 'tgl_pengeluaran'];
+    protected $fillable = ['identifier', 'pegawai_id', 'barang', 'tgl_pengeluaran'];
+
+    protected $casts = [
+        'barang' => 'array',
+    ];
 
     public function pegawai(){
         return $this->belongsTo(User::class);

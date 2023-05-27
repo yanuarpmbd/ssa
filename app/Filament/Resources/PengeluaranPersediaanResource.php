@@ -7,6 +7,8 @@ use App\Filament\Resources\PengeluaranPersediaanResource\RelationManagers;
 use App\Models\PengeluaranPersediaan;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
@@ -30,30 +32,40 @@ class PengeluaranPersediaanResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('pegawai_id')
-                    ->relationship('pegawai', 'name')
-                    ->label('Nama Pegawai')
-                    ->searchable()
-                    ->required(),
-                Select::make('barang_id')
-                    ->relationship('barang', 'nama_barang')
-                    ->label('Nama Barang')
-                    ->searchable()
-                    ->required(),
-                Stepper::make('jumlah')
-                    ->minValue(1),
-                DatePicker::make('tgl_pengeluaran')
-                    ->label('Tanggal Pengeluaran'),
-
+                Grid::make(1)
+                    ->schema([
+                        Select::make('pegawai_id')
+                            ->relationship('pegawai', 'name')
+                            ->label('Nama Pegawai')
+                            ->searchable()
+                            ->required(),
+                    ]),
+                Grid::make(1)
+                    ->schema([
+                        Repeater::make('barang')
+                            ->schema([
+                                Select::make('barang_id')
+                                    ->relationship('barang', 'nama_barang')
+                                    ->label('Nama Barang')
+                                    ->searchable()
+                                    ->required(),
+                                Stepper::make('jumlah')
+                                    ->required(),
+                            ])
+                            ->columns(2),
+                    ]),
+                Grid::make(1)
+                    ->schema([
+                        DatePicker::make('tgl_pengeluaran')
+                            ->label('Tanggal Pengeluaran'),
+                    ]),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-
-            ])
+            ->columns([])
             ->filters([
                 //
             ])
