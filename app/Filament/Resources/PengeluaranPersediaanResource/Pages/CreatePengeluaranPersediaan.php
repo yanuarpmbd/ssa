@@ -24,4 +24,9 @@ class CreatePengeluaranPersediaan extends CreateRecord
             $stocks->update(['jumlah' => $stock]);
         }
     }
+
+    protected function afterCreate(): void
+    {
+        
+    }
 }

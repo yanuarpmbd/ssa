@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('identifier');
             $table->integer('pegawai_id');
-            $table->date('tgl_pengeluaran');
+            $table->dateTime('tgl_pengeluaran');
             $table->timestamps();
         });
     }

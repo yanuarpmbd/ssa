@@ -1,50 +1,40 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Http\Livewire;
 
-use App\Filament\Resources\PengeluaranPersediaanResource\Pages;
-use App\Filament\Resources\PengeluaranPersediaanResource\RelationManagers;
-use App\Models\PengeluaranPersediaan;
+use App\Models\PengeluaranPersediaan as ModelsPengeluaranPersediaan;
 use App\Models\Persediaan;
-use Closure;
 use Filament\Forms;
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
+use Closure;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
-use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Icetalker\FilamentStepper\Forms\Components\Stepper;
 
-class PengeluaranPersediaanResource extends Resource
+class PengeluaranPersediaan extends Component implements Forms\Contracts\HasForms
 {
-    protected static ?string $model = PengeluaranPersediaan::class;
+    use Forms\Concerns\InteractsWithForms;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-add';
+    public $barang = [];
 
-    protected static ?string $navigationGroup = 'Persediaan';
+    public $data;
 
-    public static function getRecordRouteKeyName(): string
+    public $persediaan_id, $stock, $jumlah, $satuan;
+
+    public function mount(): void
     {
-        return 'identifier';
+        $this->form->fill();
     }
 
-    protected static function getNavigationBadge(): ?string
+    protected function getFormSchema(): array
     {
-        return static::$model::get()->count();
-    }
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Grid::make(1)
+        return [
+            Grid::make(1)
                     ->schema([
                         Select::make('pegawai_id')
                             ->relationship('pegawai', 'name')
@@ -61,13 +51,11 @@ class PengeluaranPersediaanResource extends Resource
                                     ->label('Nama Barang')
                                     ->reactive()
                                     ->afterStateUpdated(fn ($state, callable $set) => $set('stock', Persediaan::find($state)?->jumlah ?? 0) AND $set('satuan', Persediaan::find($state)?->satuan ?? 0))
-                                    ->disabledOn('edit')
                                     ->required(),
                                 TextInput::make('stock')
                                     ->label('Sisa Barang')
                                     ->disabled()
-                                    ->numeric()
-                                    ->hiddenOn('edit'),
+                                    ->numeric(),
                                 Stepper::make('jumlah')
                                     ->label('Jumlah Permintaan')
                                     ->minValue(1)
@@ -81,14 +69,13 @@ class PengeluaranPersediaanResource extends Resource
                                             $fail('Jumlah Permintaan Melebihi Sisa Barang');
                                         }
                                     })
-                                    ->disabledOn('edit')
                                     ->required(),
                                 TextInput::make('satuan')
                                     ->label('Satuan')
-                                    ->hiddenOn('edit')
                                     ->disabled()
                             ])
                             ->columns(4)
+                            ->dehydrated()
                             ->required(),
                     ]),
                 Grid::make(1)
@@ -98,47 +85,38 @@ class PengeluaranPersediaanResource extends Resource
                             ->default(now())
                             ->required(),
                     ]),
-            ]);
-    }
-
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                TextColumn::make('pegawai.name'),
-                TextColumn::make('tgl_pengeluaran')
-                    ->label('Tanggal Pengeluaran')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->label('Tanggal dibuat')
-                    ->dateTime()
-                    ->toggleable(),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
         ];
     }
 
-    public static function getPages(): array
+    protected function getFormModel(): string
     {
-        return [
-            'index' => Pages\ListPengeluaranPersediaans::route('/'),
-            'create' => Pages\CreatePengeluaranPersediaan::route('/create'),
-            'edit' => Pages\EditPengeluaranPersediaan::route('/{record:identifier}/edit'),
-        ];
+        return ModelsPengeluaranPersediaan::class;
+    }
+
+    public function create()
+    {
+        $this->data = $this->form->getState();
+        foreach($this->data['barang'] as $barangs){
+            $stocks = Persediaan::where('id', $barangs['persediaan_id'])->first();
+            $stock = $stocks->jumlah - $barangs['jumlah'];
+            $stocks->update(['jumlah' => $stock]);
+        }
+        
+        $barang_relasi = ModelsPengeluaranPersediaan::create($this->form->getState());
+
+        $this->form->model($barang_relasi)->saveRelationships(); 
+
+        Notification::make()
+            ->title('Data berhasil tersimpan')
+            ->success()
+            ->seconds(3)
+            ->send();
+
+        return redirect()->to('/persediaan');
+    }
+
+    public function render(): View
+    {
+        return view('livewire.pengeluaran-persediaan');
     }
 }

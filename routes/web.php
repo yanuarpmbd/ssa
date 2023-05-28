@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\BukuTamu;
+use App\Http\Livewire\PengeluaranPersediaan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/buku-tamu', BukuTamu::class);
+Route::get('/persediaan', PengeluaranPersediaan::class);
