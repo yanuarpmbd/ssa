@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use App\Models\User;
 use Closure;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class BukuTamuResource extends Resource
 {
@@ -131,6 +132,7 @@ class BukuTamuResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make(),
             ]);
     }
 

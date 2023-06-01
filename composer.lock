@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c61cf21e0164acaea050402a3dca6883",
+    "content-hash": "c89c296dc7a63da5ba900ba581d0e8d2",
     "packages": [
         {
             "name": "3x1io/filament-user",
@@ -280,6 +280,68 @@
                 "source": "https://github.com/anhskohbo/no-captcha/tree/3.5.0"
             },
             "time": "2023-02-15T16:07:08+00:00"
+        },
+        {
+            "name": "anourvalar/eloquent-serialize",
+            "version": "1.2.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AnourValar/eloquent-serialize.git",
+                "reference": "f59423cf611e98a6316ed4e2beecb44304f0277f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AnourValar/eloquent-serialize/zipball/f59423cf611e98a6316ed4e2beecb44304f0277f",
+                "reference": "f59423cf611e98a6316ed4e2beecb44304f0277f",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": "^7.1|^8.0"
+            },
+            "require-dev": {
+                "laravel/legacy-factories": "^1.1",
+                "orchestra/testbench": "~3.6.0|~3.7.0|~3.8.0|^4.0|^5.0|^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "EloquentSerialize": "AnourValar\\EloquentSerialize\\Facades\\EloquentSerializeFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AnourValar\\EloquentSerialize\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Laravel Query Builder (Eloquent) serialization",
+            "homepage": "https://github.com/AnourValar/eloquent-serialize",
+            "keywords": [
+                "anourvalar",
+                "builder",
+                "copy",
+                "eloquent",
+                "job",
+                "laravel",
+                "query",
+                "querybuilder",
+                "queue",
+                "serializable",
+                "serialization",
+                "serialize"
+            ],
+            "support": {
+                "issues": "https://github.com/AnourValar/eloquent-serialize/issues",
+                "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.2.14"
+            },
+            "time": "2023-02-28T16:58:15+00:00"
         },
         {
             "name": "awcodes/filament-quick-create",
@@ -916,6 +978,79 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "cmdinglasan/filament-boring-avatars",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cmdinglasan/filament-boring-avatars.git",
+                "reference": "3e7570ae711ce088eeecd8af07677612db261cdc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cmdinglasan/filament-boring-avatars/zipball/3e7570ae711ce088eeecd8af07677612db261cdc",
+                "reference": "3e7570ae711ce088eeecd8af07677612db261cdc",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^2.0",
+                "illuminate/contracts": "^9.0",
+                "php": "^8.0.2",
+                "spatie/laravel-package-tools": "^1.9.2"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^6.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Cmdinglasan\\FilamentBoringAvatars\\FilamentBoringAvatarsServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentBoringAvatars": "Cmdinglasan\\FilamentBoringAvatars\\Facades\\FilamentBoringAvatars"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cmdinglasan\\FilamentBoringAvatars\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Dinglasan",
+                    "email": "dinglasanchristian@outlook.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Change the default avatar URL provider for Filament to one from Boring Avatars.",
+            "homepage": "https://github.com/cmdinglasan/filament-boring-avatars",
+            "keywords": [
+                "boring-avatars",
+                "filament",
+                "filament-boring-avatars",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/cmdinglasan/filament-boring-avatars/issues",
+                "source": "https://github.com/cmdinglasan/filament-boring-avatars/tree/v1.1.1"
+            },
+            "time": "2022-10-02T14:05:24+00:00"
         },
         {
             "name": "composer/semver",
@@ -6240,30 +6375,33 @@
         },
         {
             "name": "pxlrbt/filament-excel",
-            "version": "0.1.4",
+            "version": "v1.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pxlrbt/filament-excel.git",
-                "reference": "453530a1a97321ab81a8c43c560e8dada1f4ba41"
+                "reference": "805de5a7206dde981280a84f93bd967d697beabb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pxlrbt/filament-excel/zipball/453530a1a97321ab81a8c43c560e8dada1f4ba41",
-                "reference": "453530a1a97321ab81a8c43c560e8dada1f4ba41",
+                "url": "https://api.github.com/repos/pxlrbt/filament-excel/zipball/805de5a7206dde981280a84f93bd967d697beabb",
+                "reference": "805de5a7206dde981280a84f93bd967d697beabb",
                 "shasum": ""
             },
             "require": {
-                "filament/filament": "^2.0",
+                "anourvalar/eloquent-serialize": "^1.2",
+                "filament/filament": "^2.13.24|^3.0",
                 "maatwebsite/excel": "^3.1",
                 "php": "^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.6"
+                "laravel/pint": "^1.10"
             },
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": []
+                    "providers": [
+                        "pxlrbt\\FilamentExcel\\FilamentExcelServiceProvider"
+                    ]
                 }
             },
             "autoload": {
@@ -6292,9 +6430,15 @@
             ],
             "support": {
                 "issues": "https://github.com/pxlrbt/filament-excel/issues",
-                "source": "https://github.com/pxlrbt/filament-excel/tree/0.1.4"
+                "source": "https://github.com/pxlrbt/filament-excel/tree/v1.1.11"
             },
-            "time": "2022-06-16T09:22:19+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/pxlrbt",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-05-24T19:33:29+00:00"
         },
         {
             "name": "pxlrbt/filament-spotlight",

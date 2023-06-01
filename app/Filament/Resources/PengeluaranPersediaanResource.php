@@ -21,6 +21,7 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Icetalker\FilamentStepper\Forms\Components\Stepper;
+use Filament\Pages\Actions\Action;
 
 class PengeluaranPersediaanResource extends Resource
 {
@@ -120,6 +121,10 @@ class PengeluaranPersediaanResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('download')->action(function ($record) {{
+                    return response()->download(storage_path('app/public/Persediaan/PDF/' . $record->id. '-' . $record->pegawai->name . '.pdf'));
+                    // Runs after the form fields are saved to the database.
+                }})
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

@@ -25,7 +25,10 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use pxlrbt\FilamentExcel\Actions\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Columns\Column;
 
 
 class ArsipResource extends Resource
@@ -43,7 +46,6 @@ class ArsipResource extends Resource
     protected static ?string $pluralLabel = 'Dokumen';
 
     protected static ?string $recordTitleAttribute = 'nama_arsip';
-    
 
     public static function form(Form $form): Form
     {
@@ -199,19 +201,27 @@ class ArsipResource extends Resource
                 Filter::make('Arsip Inaktif')
                     ->query(fn (Builder $query): Builder => $query->where('status', false)),
             ])
-            ->pushBulkActions([
-                ExportAction::make('export')
-                    ->withExportable(ArsipExport::class)
-                    ->deselectRecordsAfterCompletion()
-                    ->color('success')
-                    ->icon('heroicon-o-download'),
-            ])
+
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ]),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make()->withColumns([
+                        Column::make('unitKerja.nama_unit_kerja')->heading('Unit Kerja'),
+                        Column::make('nama_arsip'),
+                        Column::make('jenisArsip.kode_jenis')->heading('Jenis Arsip'),
+                        Column::make('dus.nama_dus')->heading('Nama Dus'),
+                        Column::make('rak.kode_rak')->heading('Nama Rak'),
+                        Column::make('tingkat_perkembangan'),
+                        Column::make('tanggal_arsip'),
+                    ])
+                ])
             ]);
     }
 
@@ -234,7 +244,7 @@ class ArsipResource extends Resource
     }
 
     protected static function getNavigationBadge(): ?string
-{
-    return static::getModel()::count();
-}
+    {
+        return static::getModel()::count();
+    }
 }
