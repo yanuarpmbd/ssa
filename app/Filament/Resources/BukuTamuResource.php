@@ -116,6 +116,10 @@ class BukuTamuResource extends Resource
                             );
                     })
                     ->label('Tanggal Arsip'),
+                SelectFilter::make('user_id')
+                    ->relationship('user', 'name')
+                    ->label('Nama yg dituju')
+                    ->searchable(),
                 SelectFilter::make('keperluan')
                     ->options([
                         'dinas' => 'Keperluan Dinas',
