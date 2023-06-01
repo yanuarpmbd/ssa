@@ -31,7 +31,7 @@ class BukuTamu extends ApexChartWidget
      * @return array
      */
 
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 4;
 
     protected static ?string $pollingInterval = null;
 

@@ -29,7 +29,7 @@ class LayananTI extends ApexChartWidget
      * @return array
      */
 
-    protected static ?int $sort = 4;
+    protected static ?int $sort = 5;
 
     protected static ?string $pollingInterval = null;
 
