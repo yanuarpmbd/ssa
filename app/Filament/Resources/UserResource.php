@@ -104,10 +104,10 @@ class UserResource extends Resource
         $table
             ->columns([
                 TextColumn::make('id')->sortable()->label(trans('filament-user::user.resource.id')),
-                TextColumn::make('name')->sortable()->searchable()->label(trans('filament-user::user.resource.name')),
+                TextColumn::make('name')->sortable()->searchable()->label(trans('filament-user::user.resource.name'))->wrap(),
                 TextColumn::make('email')->sortable()->searchable()->label(trans('filament-user::user.resource.email')),
                 TextColumn::make('nip')->searchable()->label('NIP'),
-                TextColumn::make('jabatan')->searchable()->label('Jabatan'),
+                TextColumn::make('jabatan')->searchable()->label('Jabatan')->wrap(),
                 TextColumn::make('unitKerja.nama_unit_kerja')
                     ->sortable()
                     ->label('Unit Kerja')

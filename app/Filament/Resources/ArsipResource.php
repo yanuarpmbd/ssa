@@ -29,6 +29,7 @@ use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
 use pxlrbt\FilamentExcel\Columns\Column;
+use Illuminate\Support\Facades\Auth;
 
 
 class ArsipResource extends Resource
@@ -245,6 +246,9 @@ class ArsipResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        if(auth()->user()->hasRole('super_admin')){
+            return static::getModel()::count();
+        }
+        return static::getModel()::query()->where('unit_kerja_id', Auth::user()->unit_kerja_id)->count();
     }
 }

@@ -6,8 +6,11 @@ use App\Filament\Resources\PengeluaranPersediaanResource;
 use App\Models\Persediaan;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use GuzzleHttp\Psr7\Response;
+use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Response as LivewireResponse;
 
 class CreatePengeluaranPersediaan extends CreateRecord
 {
@@ -21,19 +24,25 @@ class CreatePengeluaranPersediaan extends CreateRecord
     protected function beforeCreate(): void
     {
         //dd($this->data['barang']->nama_barang);
-        foreach($this->data['barang'] as $barangs){
+        foreach ($this->data['barang'] as $barangs) {
             $stocks = Persediaan::where('id', $barangs['persediaan_id'])->first();
             $stock = $stocks->jumlah - $barangs['jumlah'];
             $stocks->update(['jumlah' => $stock]);
         }
-        dd($stocks->nama_barang);
+        //dd($stocks->nama_barang);
     }
 
     protected function afterCreate(): void
     {
         $records = $this->record;
+        dd([
+            "record" => $this->record,
+            "records" => $records,
+            "data" => $this->data
+        ]);
+        //dd($records['barang']);
         //$nama_pegawai = $records->pegawai->name;
-        foreach($records['barang'] as $barangs){
+        foreach ($records['barang'] as $barangs) {
             $barang = Persediaan::where('id', $barangs['persediaan_id'])->first();
             //$kode_barang = $barang->kode_barang;
             //$nama_barang = $barang->nama_barang;
@@ -47,12 +56,12 @@ class CreatePengeluaranPersediaan extends CreateRecord
         $pdf->loadHTML($content)
             ->setPaper('a4')
             ->setOption('enable-local-file-access', true);
-        $pdfs = $pdf->inline()->getOriginalContent();
+        $pdfs = $pdf->download()->getOriginalContent();
 
-        $pdf_path = '/Persediaan/PDF/' . $records->id. '-' . $records->pegawai->name . '.pdf';
+        $pdf_path = '/Persediaan/PDF/' . $records->id . '-' . $records->pegawai->name . '.pdf';
         //dd($pdf_path);
         Storage::disk('public')->put($pdf_path, $pdfs);
 
-        response()->download(storage_path('app/public/Persediaan/PDF/' . $records->id. '-' . $records->pegawai->name . '.pdf'));
+        Response::download(storage_path('app/public/Persediaan/PDF/' . $records->id . '-' . $records->pegawai->name . '.pdf'));
     }
 }

@@ -9,6 +9,8 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ArsipRelationManager extends RelationManager
 {
@@ -16,14 +18,22 @@ class ArsipRelationManager extends RelationManager
 
     protected static ?string $recordTitleAttribute = 'dus_id';
 
+    protected function getTableQuery(): Builder
+    {
+        if(auth()->user()->hasRole('super_admin')){
+            return parent::getTableQuery();
+        }
+        return parent::getTableQuery()->where('unit_kerja_id', Auth::user()->unit_kerja_id);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('nama_dus')
-                //->disabled()
-                ->unique()
-                ->required(),
+                    //->disabled()
+                    ->unique()
+                    ->required(),
                 Select::make('rak_id')
                     ->relationship('rak', 'nama_rak')
                     ->required(),

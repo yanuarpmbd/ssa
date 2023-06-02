@@ -22,7 +22,6 @@ class ListArsips extends ListRecords
 
     protected function getTableQuery(): Builder
     {
-        //dd(auth()->user()->hasRole('super_admin'));
         if(auth()->user()->hasRole('super_admin')){
             return parent::getTableQuery();
         }

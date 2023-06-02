@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Sgcomptech\FilamentTicketing\Models\Ticket;
+use App\Models\Persediaan;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TicketPolicy
+class PersediaanPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class TicketPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->can('view_any_ticket');
+        return $user->can('view_any_persediaan');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @param  \App\Models\Persediaan  $persediaan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Ticket $ticket)
+    public function view(User $user, Persediaan $persediaan)
     {
-        return $user->can('view_ticket');
+        return $user->can('view_persediaan');
     }
 
     /**
@@ -41,31 +41,31 @@ class TicketPolicy
      */
     public function create(User $user)
     {
-        return $user->can('create_ticket');
+        return $user->can('create_persediaan');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @param  \App\Models\Persediaan  $persediaan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Ticket $ticket)
+    public function update(User $user, Persediaan $persediaan)
     {
-        return $user->can('update_ticket');
+        return $user->can('update_persediaan');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @param  \App\Models\Persediaan  $persediaan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Ticket $ticket)
+    public function delete(User $user, Persediaan $persediaan)
     {
-        return $user->can('delete_ticket');
+        return $user->can('delete_persediaan');
     }
 
     /**
@@ -76,19 +76,19 @@ class TicketPolicy
      */
     public function deleteAny(User $user)
     {
-        return $user->can('delete_any_ticket');
+        return $user->can('delete_any_persediaan');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @param  \App\Models\Persediaan  $persediaan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Ticket $ticket)
+    public function forceDelete(User $user, Persediaan $persediaan)
     {
-        return $user->can('force_delete_ticket');
+        return $user->can('force_delete_persediaan');
     }
 
     /**
@@ -99,19 +99,19 @@ class TicketPolicy
      */
     public function forceDeleteAny(User $user)
     {
-        return $user->can('force_delete_any_ticket');
+        return $user->can('force_delete_any_persediaan');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @param  \App\Models\Persediaan  $persediaan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Ticket $ticket)
+    public function restore(User $user, Persediaan $persediaan)
     {
-        return $user->can('restore_ticket');
+        return $user->can('restore_persediaan');
     }
 
     /**
@@ -122,19 +122,19 @@ class TicketPolicy
      */
     public function restoreAny(User $user)
     {
-        return $user->can('restore_any_ticket');
+        return $user->can('restore_any_persediaan');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \Sgcomptech\FilamentTicketing\Models\Ticket  $ticket
+     * @param  \App\Models\Persediaan  $persediaan
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function replicate(User $user, Ticket $ticket)
+    public function replicate(User $user, Persediaan $persediaan)
     {
-        return $user->can('replicate_ticket');
+        return $user->can('replicate_persediaan');
     }
 
     /**
@@ -145,7 +145,7 @@ class TicketPolicy
      */
     public function reorder(User $user)
     {
-        return $user->can('reorder_ticket');
+        return $user->can('reorder_persediaan');
     }
 
 }

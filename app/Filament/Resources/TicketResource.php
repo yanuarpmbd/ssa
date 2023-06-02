@@ -46,6 +46,9 @@ class TicketResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
+        if(auth()->user()->hasRole('super_admin')){
+            return static::getModel()::where('status', 1)->count();
+        }
         return static::getModel()::where('status', 1)->where('user_id', auth()->user()->id)->count();
     }
 

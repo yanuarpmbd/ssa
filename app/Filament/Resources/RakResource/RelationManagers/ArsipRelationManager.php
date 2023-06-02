@@ -10,12 +10,22 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 
 class ArsipRelationManager extends RelationManager
 {
     protected static string $relationship = 'arsip';
 
     protected static ?string $recordTitleAttribute = 'rak_id';
+
+    protected function getTableQuery(): Builder
+    {
+        if(auth()->user()->hasRole('super_admin')){
+            return parent::getTableQuery();
+        }
+        return parent::getTableQuery()->where('unit_kerja_id', Auth::user()->unit_kerja_id);
+    }
 
     public static function form(Form $form): Form
     {

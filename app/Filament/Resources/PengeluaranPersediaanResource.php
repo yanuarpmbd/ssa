@@ -61,7 +61,7 @@ class PengeluaranPersediaanResource extends Resource
                                     ->options(Persediaan::query()->pluck('nama_barang', 'id'))
                                     ->label('Nama Barang')
                                     ->reactive()
-                                    ->afterStateUpdated(fn ($state, callable $set) => $set('stock', Persediaan::find($state)?->jumlah ?? 0) AND $set('satuan', Persediaan::find($state)?->satuan ?? 0))
+                                    ->afterStateUpdated(fn ($state, callable $set) => $set('stock', Persediaan::find($state)?->jumlah ?? 0) and $set('satuan', Persediaan::find($state)?->satuan ?? 0))
                                     ->disabledOn('edit')
                                     ->required(),
                                 TextInput::make('stock')
@@ -120,11 +120,13 @@ class PengeluaranPersediaanResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('download')->action(function ($record) {{
-                    return response()->download(storage_path('app/public/Persediaan/PDF/' . $record->id. '-' . $record->pegawai->name . '.pdf'));
-                    // Runs after the form fields are saved to the database.
-                }})
+                //Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('download')
+                    ->action(function ($record) { {
+                            return response()->download(storage_path('app/public/Persediaan/PDF/' . $record->id . '-' . $record->pegawai->name . '.pdf'));
+                        }
+                    })
+                    ->icon('heroicon-o-download'),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -144,6 +146,7 @@ class PengeluaranPersediaanResource extends Resource
             'index' => Pages\ListPengeluaranPersediaans::route('/'),
             'create' => Pages\CreatePengeluaranPersediaan::route('/create'),
             'edit' => Pages\EditPengeluaranPersediaan::route('/{record:identifier}/edit'),
+            'view' => Pages\ViewPengeluaranPersediaan::route('/{record:identifier}}'),
         ];
     }
 }
