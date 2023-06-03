@@ -35,11 +35,6 @@ class CreatePengeluaranPersediaan extends CreateRecord
     protected function afterCreate(): void
     {
         $records = $this->record;
-        dd([
-            "record" => $this->record,
-            "records" => $records,
-            "data" => $this->data
-        ]);
         //dd($records['barang']);
         //$nama_pegawai = $records->pegawai->name;
         foreach ($records['barang'] as $barangs) {

@@ -14,8 +14,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'Spatie\Activitylog\Models\Activity' => 'App\Policies\ActivityPolicy',
-        'Sgcomptech\FilamentTicketing\Models\Ticket' => 'App\Policies\TicketPolicy',
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        //'Sgcomptech\FilamentTicketing\Models\Ticket' => 'App\Policies\TicketPolicy',
+        'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**

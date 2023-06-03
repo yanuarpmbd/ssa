@@ -36,11 +36,6 @@ class PengeluaranPersediaanResource extends Resource
         return 'identifier';
     }
 
-    protected static function getNavigationBadge(): ?string
-    {
-        return static::$model::get()->count();
-    }
-
     public static function form(Form $form): Form
     {
         return $form
@@ -49,6 +44,10 @@ class PengeluaranPersediaanResource extends Resource
                     ->schema([
                         Select::make('pegawai_id')
                             ->relationship('pegawai', 'name')
+                            ->default(function () {
+                                    return auth()->user()->id;
+        
+                            })
                             ->label('Nama Pegawai')
                             ->required(),
                     ]),
