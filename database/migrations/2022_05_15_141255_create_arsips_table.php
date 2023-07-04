@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('nama_arsip');
             $table->integer('rak_id');
             $table->integer('dus_id');
-            $table->date('tanggal_arsip');
+            $table->string('tahun');
             $table->string('tingkat_perkembangan');
             $table->integer('status');
             $table->longText('deskripsi')->nullable();

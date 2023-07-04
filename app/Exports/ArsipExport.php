@@ -44,7 +44,7 @@ class ArsipExport implements FromCollection, WithMapping, WithHeadings, WithStyl
             $records->dus->nama_dus,
             $records->tingkat_perkembangan,
             $status,
-            $records->tanggal_arsip,
+            $records->tahun,
             $records->deskripsi,
         ]; 
     }
@@ -59,7 +59,7 @@ class ArsipExport implements FromCollection, WithMapping, WithHeadings, WithStyl
             'Dus',
             'Tingkat Perkembangan',
             'Status',
-            'Tanggal Arsip',
+            'Tahun',
             'Deskripsi',
         ];
     }

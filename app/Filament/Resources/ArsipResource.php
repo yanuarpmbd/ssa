@@ -86,8 +86,12 @@ class ArsipResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
-                DatePicker::make('tanggal_arsip')
-                    ->label('Tanggal Arsip')
+                Select::make('tahun')
+                    ->label('Tahun')
+                    ->options(function () {
+                        $years = range(Carbon::now()->year, Carbon::now()->subYear(17)->year);
+                        return $years;
+                    })
                     ->required(),
                 Grid::make()->schema([
                     Toggle::make('status')
@@ -152,11 +156,11 @@ class ArsipResource extends Resource
                     ->falseIcon('heroicon-s-x-circle')
                     ->extraAttributes(['class' => 'flex justify-center'])
                     ->label('Retensi'),
-                TextColumn::make('tanggal_arsip')
+                TextColumn::make('tahun')
                     ->sortable()
-                    ->label('Tanggal Arsip'),
+                    ->label('Tahun'),
             ])
-            ->defaultSort('tanggal_arsip')
+            ->defaultSort('tahun')
             ->filters([
                 SelectFilter::make('kode_arsip')
                     ->relationship('jenisArsip', 'kode_jenis')
@@ -174,23 +178,13 @@ class ArsipResource extends Resource
                     ->relationship('dus', 'nama_dus')
                     ->label('Dus')
                     ->searchable(),
-                Filter::make('tanggal_arsip')
-                    ->form([
-                        Forms\Components\DatePicker::make('dari_tanggal'),
-                        Forms\Components\DatePicker::make('sampai_tanggal'),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['dari_tanggal'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('tanggal_arsip', '>=', $date),
-                            )
-                            ->when(
-                                $data['sampai_tanggal'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('tanggal_arsip', '<=', $date),
-                            );
-                    })
-                    ->label('Tanggal Arsip'),
+                SelectFilter::make('tahun')
+                    ->label('Tahun')
+                    ->searchable()
+                    ->options(function () {
+                        $years = range(Carbon::now()->year, Carbon::now()->subYear(15)->year);
+                        return array_combine($years, $years);
+                    }),
                 SelectFilter::make('tingkat_perkembangan')
                     ->options([
                         'asli' => 'Asli',
@@ -246,7 +240,7 @@ class ArsipResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        if(auth()->user()->hasRole('super_admin')){
+        if (auth()->user()->hasRole('super_admin')) {
             return static::getModel()::count();
         }
         return static::getModel()::query()->where('unit_kerja_id', Auth::user()->unit_kerja_id)->count();

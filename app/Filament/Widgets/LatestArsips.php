@@ -65,9 +65,9 @@ class LatestArsips extends BaseWidget
                 ->falseIcon('heroicon-s-x-circle')
                 ->extraAttributes(['class' => 'flex justify-center'])
                 ->label('Retensi'),
-            Tables\Columns\TextColumn::make('tanggal_arsip')
+            Tables\Columns\TextColumn::make('tahun')
                 ->sortable()
-                ->label('Tanggal Arsip'),
+                ->label('Tahun'),
         ];
     }
 }

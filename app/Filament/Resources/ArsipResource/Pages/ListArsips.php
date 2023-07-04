@@ -33,8 +33,8 @@ class ListArsips extends ListRecords
         $records = Arsip::all();
         $current = Carbon::now()->format('Y-m-d');
         foreach($records as $record){
-            $record->tanggal_arsip = Carbon::parse($record->tanggal_arsip);
-            $diff = $record->tanggal_arsip->diffInYears($current);
+            $record->tahun = Carbon::parse($record->tahun);
+            $diff = $record->tahun->diffInYears($current);
             if($diff < $record->jenisArsip->retensi){
                 $record->status = 1;
             }

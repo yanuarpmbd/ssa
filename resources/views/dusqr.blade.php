@@ -46,6 +46,7 @@
             float: left;
             padding: 20px
         }
+        
 
         .container .item-right {
             margin-right: 20px;
@@ -62,15 +63,15 @@
 
         .container .item-right .day,
         .container .item-left .event {
-            color: #111;
-            font-size: 5px;
+            color: #e7a400;
+            font-size: 10px;
         }
 
         .container .item-right .day,
         .container .item-left .events {
             padding-top: 15px;
-            color: #111;
-            font-size: 5px;
+            color: #e7a400;
+            font-size: 10px;
         }
 
         .container .item-right .day {
@@ -115,6 +116,12 @@
 
         .container .item-left .loc {
             display: block
+        }
+
+        .container .item-left .num {
+            font-size: 150px;
+            text-align: center;
+            color: #e7a400;
         }
 
         .fix {
@@ -183,11 +190,12 @@
         <div class="item">
             <div class="item-right">
                 <img src="{{public_path('storage'.$data->qr_path)}}">
-                <h2 class="num">{{$data->nama_dus}}</h2>
+
             </div> <!-- end item-right -->
 
             <div class="item-left">
-                <table>
+                <h2 class="num">{{$data->nama_dus}}</h2>
+                <!-- <table>
                     <thead>
                         <tr>
                             <th colspan="2">Nama Dokumen</th>
@@ -205,7 +213,7 @@
                         </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> -->
                 <div class="fix"></div>
                 <button class="tickets">E-Arsip BPK RI</button>
                 <p class="events">{{url('/')}}</p>

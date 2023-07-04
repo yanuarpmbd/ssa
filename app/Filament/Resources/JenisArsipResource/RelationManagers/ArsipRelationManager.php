@@ -72,9 +72,9 @@ class ArsipRelationManager extends RelationManager
                     ->falseIcon('heroicon-s-x-circle')
                     ->extraAttributes(['class' => 'flex justify-center'])
                     ->label('Retensi'),
-                TextColumn::make('tanggal_arsip')
+                TextColumn::make('tahun')
                     ->sortable()
-                    ->label('Tanggal Arsip'),
+                    ->label('Tahun'),
             ])
             ->filters([
                 //

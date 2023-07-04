@@ -116,7 +116,7 @@ class BukuTamuResource extends Resource
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
-                    ->label('Tanggal Arsip'),
+                    ->label('Tahun'),
                 SelectFilter::make('user_id')
                     ->relationship('user', 'name')
                     ->label('Nama yg dituju')

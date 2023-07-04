@@ -57,6 +57,7 @@
             <img src="{{public_path('storage'.$data->qr_path)}}">
             <h2 class="num">{{$data->kode_nama}}</h2>
         </div>
+    </div>
 </body>
 
 </html>
