@@ -94,11 +94,13 @@ class ArsipResource extends Resource
                     })
                     ->required(),
                 Grid::make()->schema([
-                    Toggle::make('status')
-                        ->inline(false)
-                        ->onIcon('heroicon-s-check-circle')
-                        ->offIcon('heroicon-s-x-circle')
-                        ->label('Retensi (aktif/inaktif)')
+                    Radio::make('status')
+                        ->options([
+                            '0' => 'Aktif',
+                            '1' => 'Inaktif',
+                            '2' => 'Musnah'
+                        ])
+                        ->label('Retensi')
                         ->required(),
                     Radio::make('tingkat_perkembangan')
                         ->options([
@@ -151,10 +153,16 @@ class ArsipResource extends Resource
                     ->label('Tingkat Perkembangan')
                     ->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('status')
-                    ->boolean()
-                    ->trueIcon('heroicon-s-check-circle')
-                    ->falseIcon('heroicon-s-x-circle')
-                    ->extraAttributes(['class' => 'flex justify-center'])
+                    ->options([
+                        'heroicon-s-check-circle' => 1,
+                        'heroicon-s-minus-circle' => 0,
+                        'heroicon-s-x-circle' => 2
+                    ])
+                    ->colors([
+                        'success' => 1,
+                        'secondary' => 0,
+                        'danger' => 2
+                    ])
                     ->label('Retensi'),
                 TextColumn::make('tahun')
                     ->sortable()
@@ -192,9 +200,11 @@ class ArsipResource extends Resource
                     ])
                     ->label('Tingkat Perkembangan'),
                 Filter::make('Arsip Aktif')
-                    ->query(fn (Builder $query): Builder => $query->where('status', true)),
+                    ->query(fn (Builder $query): Builder => $query->where('status', 1)),
                 Filter::make('Arsip Inaktif')
-                    ->query(fn (Builder $query): Builder => $query->where('status', false)),
+                    ->query(fn (Builder $query): Builder => $query->where('status', 0)),
+                Filter::make('Arsip Musnah')
+                    ->query(fn (Builder $query): Builder => $query->where('status', 2)),
             ])
 
             ->actions([

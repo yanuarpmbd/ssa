@@ -34,7 +34,7 @@ class DusResource extends Resource
         return $form
             ->schema([
                 TextInput::make('nama_dus')
-                    //->disabled()
+                    ->disabled()
                     ->unique()
                     ->required(),
                 Select::make('rak_id')

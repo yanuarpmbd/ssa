@@ -13,10 +13,6 @@ class Arsip extends Model
 
     protected $fillable = ['identifier', 'user_id', 'kode_arsip', 'unit_kerja_id', 'tingkat_perkembangan', 'nama_arsip', 'rak_id', 'dus_id', 'status', 'deskripsi', 'tahun', 'upload_arsip'];
 
-    protected $casts = [
-        'status' => 'boolean',
-    ];
-
     public function jenisArsip(){
         return $this->belongsTo(JenisArsip::class, 'kode_arsip');
     }

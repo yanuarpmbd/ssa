@@ -19,12 +19,16 @@ class ViewArsip extends ViewRecord
 
         $this->record = $this->getRecord($record);
 
-        if($this->record->status){
+        if($this->record->status == 1){
             $this->record->status_arsip = 'Aktif';
+        }
+        elseif($this->record->status == 2){
+            $this->record->status_arsip = 'Musnah';
         }
         else{
             $this->record->status_arsip = 'Inaktif';
         }
+        
         $this->getRecord($record)->incrementCounter('number_of_arsip_views');
     }
 
