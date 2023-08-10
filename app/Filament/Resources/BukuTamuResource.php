@@ -99,6 +99,7 @@ class BukuTamuResource extends Resource
                     ]),
                 TextColumn::make('created_at')->label('Waktu Kunjungan'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('waktu_kunjungan')
                     ->form([

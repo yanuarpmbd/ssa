@@ -177,7 +177,9 @@ class TicketResource extends Resource
                     ->visible($canManageAllTickets || $canManageAssignedTickets),
                 TextColumn::make('created_at')
                     ->Label('Dibuat pada Tanggal')
+                    ->sortable()
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('filters')
                     ->form([
