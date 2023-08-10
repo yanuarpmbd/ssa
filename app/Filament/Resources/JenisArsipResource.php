@@ -39,10 +39,15 @@ class JenisArsipResource extends Resource
                 TextInput::make('jenis_arsip')
                     ->disableAutocomplete()
                     ->required(),
-                TextInput::make('retensi')
+                TextInput::make('retensi_inaktif')
                     ->disableAutocomplete()
                     ->numeric()
-                    ->label('Retensi (*Tahun)')
+                    ->label('Retensi Inaktif (*Tahun)')
+                    ->required(),
+                TextInput::make('retensi_musnah')
+                    ->disableAutocomplete()
+                    ->numeric()
+                    ->label('Retensi Musnah (*Tahun)')
                     ->required(),
                 Grid::make()->schema([
                     MarkDownEditor::make('deskripsi')->required(),
@@ -61,12 +66,15 @@ class JenisArsipResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->wrap(),
-                TextColumn::make('retensi')
-                    ->label('Retensi (*Tahun)')
-                    ->sortable()
-                    ->searchable(),
+                TextColumn::make('retensi_inaktif')
+                    ->label('Retensi Inaktif (*Tahun)')
+                    ->sortable(),
+                TextColumn::make('retensi_musnah')
+                    ->label('Retensi Musnah (*Tahun)')
+                    ->sortable(),
                 TextColumn::make('deskripsi')
                     ->sortable()
+                    ->hidden()
                     ->wrap(),
             ])
             ->filters([
