@@ -60,14 +60,21 @@ class LatestArsips extends BaseWidget
             Tables\Columns\TextColumn::make('tingkat_perkembangan')
                 ->label('Tingkat Perkembangan')
                 ->toggleable(isToggledHiddenByDefault: true),
-            Tables\Columns\BooleanColumn::make('status')
-                ->trueIcon('heroicon-s-check-circle')
-                ->falseIcon('heroicon-s-x-circle')
-                ->extraAttributes(['class' => 'flex justify-center'])
+            Tables\Columns\IconColumn::make('status')
+                ->options([
+                    'heroicon-s-check-circle' => 1,
+                    'heroicon-s-minus-circle' => 0,
+                    'heroicon-s-x-circle' => 2
+                ])
+                ->colors([
+                    'success' => 1,
+                    'secondary' => 0,
+                    'danger' => 2
+                ])
                 ->label('Retensi'),
-            Tables\Columns\TextColumn::make('tanggal_arsip')
+            Tables\Columns\TextColumn::make('tahun')
                 ->sortable()
-                ->label('Tanggal Arsip'),
+                ->label('Tahun'),
         ];
     }
 }

@@ -25,7 +25,11 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
-use pxlrbt\FilamentExcel\Actions\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Columns\Column;
+use Illuminate\Support\Facades\Auth;
 
 
 class ArsipResource extends Resource
@@ -43,7 +47,6 @@ class ArsipResource extends Resource
     protected static ?string $pluralLabel = 'Dokumen';
 
     protected static ?string $recordTitleAttribute = 'nama_arsip';
-    
 
     public static function form(Form $form): Form
     {
@@ -83,15 +86,21 @@ class ArsipResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
-                DatePicker::make('tanggal_arsip')
-                    ->label('Tanggal Arsip')
+                Select::make('tahun')
+                    ->label('Tahun')
+                    ->options(function () {
+                        $years = range(Carbon::now()->year, Carbon::now()->subYear(17)->year);
+                        return $years;
+                    })
                     ->required(),
                 Grid::make()->schema([
-                    Toggle::make('status')
-                        ->inline(false)
-                        ->onIcon('heroicon-s-check-circle')
-                        ->offIcon('heroicon-s-x-circle')
-                        ->label('Retensi (aktif/inaktif)')
+                    Radio::make('status')
+                        ->options([
+                            '0' => 'Aktif',
+                            '1' => 'Inaktif',
+                            '2' => 'Musnah'
+                        ])
+                        ->label('Retensi')
                         ->required(),
                     Radio::make('tingkat_perkembangan')
                         ->options([
@@ -144,16 +153,22 @@ class ArsipResource extends Resource
                     ->label('Tingkat Perkembangan')
                     ->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('status')
-                    ->boolean()
-                    ->trueIcon('heroicon-s-check-circle')
-                    ->falseIcon('heroicon-s-x-circle')
-                    ->extraAttributes(['class' => 'flex justify-center'])
+                    ->options([
+                        'heroicon-s-check-circle' => 1,
+                        'heroicon-s-minus-circle' => 0,
+                        'heroicon-s-x-circle' => 2
+                    ])
+                    ->colors([
+                        'success' => 1,
+                        'secondary' => 0,
+                        'danger' => 2
+                    ])
                     ->label('Retensi'),
-                TextColumn::make('tanggal_arsip')
+                TextColumn::make('tahun')
                     ->sortable()
-                    ->label('Tanggal Arsip'),
+                    ->label('Tahun'),
             ])
-            ->defaultSort('tanggal_arsip')
+            ->defaultSort('tahun')
             ->filters([
                 SelectFilter::make('kode_arsip')
                     ->relationship('jenisArsip', 'kode_jenis')
@@ -171,23 +186,13 @@ class ArsipResource extends Resource
                     ->relationship('dus', 'nama_dus')
                     ->label('Dus')
                     ->searchable(),
-                Filter::make('tanggal_arsip')
-                    ->form([
-                        Forms\Components\DatePicker::make('dari_tanggal'),
-                        Forms\Components\DatePicker::make('sampai_tanggal'),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['dari_tanggal'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('tanggal_arsip', '>=', $date),
-                            )
-                            ->when(
-                                $data['sampai_tanggal'],
-                                fn (Builder $query, $date): Builder => $query->whereDate('tanggal_arsip', '<=', $date),
-                            );
-                    })
-                    ->label('Tanggal Arsip'),
+                SelectFilter::make('tahun')
+                    ->label('Tahun')
+                    ->searchable()
+                    ->options(function () {
+                        $years = range(Carbon::now()->year, Carbon::now()->subYear(15)->year);
+                        return array_combine($years, $years);
+                    }),
                 SelectFilter::make('tingkat_perkembangan')
                     ->options([
                         'asli' => 'Asli',
@@ -195,23 +200,33 @@ class ArsipResource extends Resource
                     ])
                     ->label('Tingkat Perkembangan'),
                 Filter::make('Arsip Aktif')
-                    ->query(fn (Builder $query): Builder => $query->where('status', true)),
+                    ->query(fn (Builder $query): Builder => $query->where('status', 1)),
                 Filter::make('Arsip Inaktif')
-                    ->query(fn (Builder $query): Builder => $query->where('status', false)),
+                    ->query(fn (Builder $query): Builder => $query->where('status', 0)),
+                Filter::make('Arsip Musnah')
+                    ->query(fn (Builder $query): Builder => $query->where('status', 2)),
             ])
-            ->pushBulkActions([
-                ExportAction::make('export')
-                    ->withExportable(ArsipExport::class)
-                    ->deselectRecordsAfterCompletion()
-                    ->color('success')
-                    ->icon('heroicon-o-download'),
-            ])
+
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ]),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make()->exports([
+                    ExcelExport::make()->withColumns([
+                        Column::make('unitKerja.nama_unit_kerja')->heading('Unit Kerja'),
+                        Column::make('nama_arsip'),
+                        Column::make('jenisArsip.kode_jenis')->heading('Jenis Arsip'),
+                        Column::make('dus.nama_dus')->heading('Nama Dus'),
+                        Column::make('rak.kode_rak')->heading('Nama Rak'),
+                        Column::make('tingkat_perkembangan'),
+                        Column::make('tanggal_arsip'),
+                    ])
+                ])
             ]);
     }
 
@@ -234,7 +249,10 @@ class ArsipResource extends Resource
     }
 
     protected static function getNavigationBadge(): ?string
-{
-    return static::getModel()::count();
-}
+    {
+        if (auth()->user()->hasRole('super_admin')) {
+            return static::getModel()::count();
+        }
+        return static::getModel()::query()->where('unit_kerja_id', Auth::user()->unit_kerja_id)->count();
+    }
 }

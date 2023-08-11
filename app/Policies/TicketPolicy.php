@@ -53,10 +53,7 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket)
     {
-        return $user->can('manage all tickets')
-            || $user->can('assign tickets')
-            || ($user->can('manage assigned tickets') && $ticket->assigned_to_id == $user->id)
-            || $ticket->user_id == $user->id;
+        return $user->can('update_ticket');
     }
 
     /**
@@ -150,4 +147,5 @@ class TicketPolicy
     {
         return $user->can('reorder_ticket');
     }
+
 }

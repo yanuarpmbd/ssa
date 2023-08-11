@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\TicketResource\Pages;
 
+use App\Mail\LayananTIRegister;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Str;
 use Sgcomptech\FilamentTicketing\Events\NewTicket;
+use Illuminate\Support\Facades\Mail;
 
 class CreateTicket extends CreateRecord
 {
@@ -50,6 +52,10 @@ class CreateTicket extends CreateRecord
     protected function afterCreate(): void
     {
         NewTicket::dispatch($this->record);
+        //dd($this->record->user->unitKerja->nama_unit_kerja);
+        Mail::to($this->record->user->email)->send(new LayananTIRegister($this->record));
+        Mail::to($this->record->assigned_to->email)->send(new LayananTIRegister($this->record));
+        //Mail::to('yanuarpambudi.qualita@gmail.com')->send(new LayananTI($this->record));
     }
 
     protected function getTitle(): string

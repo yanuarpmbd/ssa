@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -46,6 +47,9 @@ class TicketResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
+        if (auth()->user()->hasRole('super_admin')) {
+            return static::getModel()::where('status', 1)->count();
+        }
         return static::getModel()::where('status', 1)->where('user_id', auth()->user()->id)->count();
     }
 
@@ -58,13 +62,13 @@ class TicketResource extends Resource
     {
         $user = auth()->user();
         if (config('filament-ticketing.use_authorization')) {
-            $cannotManageAllTickets = $user->cannot('manageAllTickets', Ticket::class);
-            $cannotManageAssignedTickets = $user->cannot('manageAssignedTickets', Ticket::class);
-            $cannotAssignTickets = $user->cannot('assignTickets', Ticket::class);
+            $canManageAllTickets = $user->can('manageAllTickets', Ticket::class);
+            $canManageAssignedTickets = $user->can('manageAssignedTickets', Ticket::class);
+            $canAssignTickets = $user->can('assignTickets', Ticket::class);
         } else {
-            $cannotManageAllTickets = false;
-            $cannotManageAssignedTickets = false;
-            $cannotAssignTickets = false;
+            $canManageAllTickets = true;
+            $canManageAssignedTickets = true;
+            $canAssignTickets = true;
         }
 
         $titles = array_map(fn ($e) => __($e), config('filament-ticketing.titles'));
@@ -96,12 +100,15 @@ class TicketResource extends Resource
                         ->required()
                         ->columnSpan(2)
                         ->disabledOn('edit'),
+                    FileUpload::make('file_upload')
+                        ->columnSpan(2)
+                        ->label('File Upload'),
                     Select::make('status')
                         ->translateLabel()
                         ->options($statuses)
                         ->required()
-                        ->disabled(fn ($record) => ($cannotManageAllTickets &&
-                            ($cannotManageAssignedTickets || $record?->assigned_to_id != $user->id)
+                        ->disabled(fn ($record) => (
+                            ($canManageAssignedTickets || $record?->assigned_to_id != $user->id)
                         ))
                         ->hiddenOn('create'),
                     Select::make('assigned_to_id')
@@ -119,7 +126,9 @@ class TicketResource extends Resource
                                 ->pluck('name', 'id');
                         })
                         ->getOptionLabelUsing(fn ($value): ?string => config('filament-ticketing.user-model')::find($value)?->name)
-                        ->disabled($cannotAssignTickets)
+                        ->disabled(fn ($record) => (
+                            ($canManageAssignedTickets || $record?->assigned_to_id != $user->id)
+                        ))
                         ->hiddenOn('create'),
                     Placeholder::make('Created At')
                         ->label(__('Dibuat Pada Tanggal'))
@@ -168,7 +177,9 @@ class TicketResource extends Resource
                     ->visible($canManageAllTickets || $canManageAssignedTickets),
                 TextColumn::make('created_at')
                     ->Label('Dibuat pada Tanggal')
+                    ->sortable()
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('filters')
                     ->form([

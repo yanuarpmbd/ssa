@@ -69,7 +69,9 @@ return [
             'AccountWidget', 'FilamentInfoWidget',
         ],
 
-        'resources' => [],
+        'resources' => [
+            'TicketResource'
+        ],
     ],
 
     'register_role_policy' => [

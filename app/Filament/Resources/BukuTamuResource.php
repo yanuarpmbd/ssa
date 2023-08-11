@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use App\Models\User;
 use Closure;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 
 class BukuTamuResource extends Resource
 {
@@ -98,6 +99,7 @@ class BukuTamuResource extends Resource
                     ]),
                 TextColumn::make('created_at')->label('Waktu Kunjungan'),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('waktu_kunjungan')
                     ->form([
@@ -115,7 +117,11 @@ class BukuTamuResource extends Resource
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
-                    ->label('Tanggal Arsip'),
+                    ->label('Tahun'),
+                SelectFilter::make('user_id')
+                    ->relationship('user', 'name')
+                    ->label('Nama yg dituju')
+                    ->searchable(),
                 SelectFilter::make('keperluan')
                     ->options([
                         'dinas' => 'Keperluan Dinas',
@@ -127,6 +133,7 @@ class BukuTamuResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                ExportBulkAction::make(),
             ]);
     }
 

@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UnitKerja::class);
     }
+
+    public function bukuTamu()
+    {
+        return $this->hasMany(BukuTamu::class, 'user_id');
+    }
+
+    public function pengeluaranPersediaan()
+    {
+        return $this->hasMany(PengeluaranPersediaan::class);
+    }
 }
