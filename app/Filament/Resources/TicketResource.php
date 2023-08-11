@@ -15,7 +15,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Sgcomptech\FilamentTicketing\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
+use App\Filament\Resources\TicketResource\RelationManagers\CommentsRelationManager;
 use Sgcomptech\FilamentTicketing\Models\Ticket;
 use Illuminate\Support\Str;
 

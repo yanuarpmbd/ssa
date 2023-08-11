@@ -37,5 +37,7 @@ class EditTicket extends EditRecord
         if ($this->record->assigned_to_id != $this->prev_assigned_to_id) {
             NewAssignment::dispatch($this->record);
         }
+        //$statuses = array_map(fn ($e) => __($e), config('filament-ticketing.statuses'));
+        //dd($statuses[$this->record->status]);
     }
 }
