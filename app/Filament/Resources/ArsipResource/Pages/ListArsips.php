@@ -33,6 +33,15 @@ class ListArsips extends ListRecords
         return parent::getTableQuery()->where('unit_kerja_id', Auth::user()->unit_kerja_id);
     }
 
+    public function generateND($records)
+    {
+        parent::mount($records);
+        static::authorizeResourceAccess();
+        $records = $this->getRecord($records);
+
+        dd($records);
+    }
+
     public function updateRetensi()
     {
         $records = Arsip::all();

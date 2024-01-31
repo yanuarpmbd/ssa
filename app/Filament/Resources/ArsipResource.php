@@ -20,11 +20,13 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportAction;
 use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
 use pxlrbt\FilamentExcel\Exports\ExcelExport;
@@ -90,7 +92,7 @@ class ArsipResource extends Resource
                     ->label('Tahun')
                     ->options(function () {
                         $years = range(Carbon::now()->year, Carbon::now()->subYear(17)->year);
-                        return $years;
+                        return array_combine($years, $years);
                     })
                     ->required(),
                 Grid::make()->schema([
@@ -226,7 +228,16 @@ class ArsipResource extends Resource
                         Column::make('tingkat_perkembangan'),
                         Column::make('tanggal_arsip'),
                     ])
-                ])
+                ]),
+                BulkAction::make('nota_dinas')
+                    ->action(function (Collection $records){
+                        //dd($records);
+                        foreach ($records as $record){
+                            dd($record);
+                        }
+                    })
+                    ->icon('heroicon-o-document'),
+                //->action(fn (Arsip $record): string => route('downloadND', $record->id)),
             ]);
     }
 
