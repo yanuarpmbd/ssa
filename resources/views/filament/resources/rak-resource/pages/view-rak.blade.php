@@ -8,8 +8,7 @@
 >
     <div class="flex">
         <img src="{{asset('/storage'.$this->record->qr_path)}}" onerror="this.onrror=null; this.src='{{asset('/images/lambang-bpk.png')}}'" width="80" height="100">
-        @if(auth()->user()->roles[0]->name == 'super_admin')
-        <div class="ml-4 flex-col flex-shrink-0">
+               <div class="ml-4 flex-col flex-shrink-0">
             <div class="pb-3">
                 <x-filament-support::button
                 wire:click="generateQr"
@@ -27,8 +26,6 @@
                 </x-filament-support::button>
             </div>
         </div>
-        @else
-        @endif
     </div>
 
     @php

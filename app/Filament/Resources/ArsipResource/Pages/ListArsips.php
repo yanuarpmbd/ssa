@@ -54,7 +54,7 @@ class ListArsips extends ListRecords
 
     public function generateQR()
     {
-        $records = Dus::all()->where('rak_id', 1);
+        $records = Dus::whereBetween('nama_dus', [5900, 5935])->get();
         foreach ($records as $record) {
             $time = Carbon::now();
             $data = $record;

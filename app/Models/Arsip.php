@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Maher\Counters\Traits\HasCounter;
+use App\Traits\Uuid;
 
 
 class Arsip extends Model
 {
-    use HasFactory, HasCounter;
+    use HasFactory, HasCounter, Uuid;
 
     protected $fillable = ['identifier', 'user_id', 'kode_arsip', 'unit_kerja_id', 'tingkat_perkembangan', 'nama_arsip', 'rak_id', 'dus_id', 'status', 'deskripsi', 'tahun', 'upload_arsip'];
 
